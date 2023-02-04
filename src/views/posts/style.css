@@ -1,0 +1,7 @@
+.posts-page {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  text-align: center;
+}

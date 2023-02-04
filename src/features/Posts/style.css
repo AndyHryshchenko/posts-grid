@@ -1,0 +1,12 @@
+.posts__content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.posts__content-item {
+  margin: 20px;
+  width: 300px;
+  height: 400px;
+  box-sizing: border-box;
+}
