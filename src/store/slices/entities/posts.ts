@@ -6,7 +6,6 @@ import type { RootState } from '../../index';
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async () => {
-    console.log('fetchPosts');
     return PostsService.fetchPosts();
   }
 );

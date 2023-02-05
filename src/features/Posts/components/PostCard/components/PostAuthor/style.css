@@ -1,3 +1,27 @@
+.author {
+  font-size: 0.875rem;
+}
+
 .author__title {
   font-weight: 400;
+  font-size: 1em;
+  margin: 0;
+}
+
+.author__content {
+  display: grid;
+  grid-template-columns: max-content auto;
+  row-gap: 0.65em;
+}
+
+.author__content-label {
+  grid-column-start: 1;
+  font-weight: 700;
+}
+.author__content-value {
+  grid-column-start: 2;
+  text-align: left;
+  margin-left: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
