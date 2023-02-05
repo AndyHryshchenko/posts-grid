@@ -1,6 +1,4 @@
 import { useCallback } from "react";
-import uniqBy from 'lodash.uniqby';
-import { Post } from "../types";
 import { useAppDispatch } from "./store";
 import { fetchPostAuthor } from "../store/slices/entities/postAuthors";
 
@@ -32,14 +30,10 @@ export const usePostAuthorsData = (() => {
       }
     }, [dispatch])
   
-    const fetch = useCallback((posts: Post[]) => {
-      const postsWithUniqueAuthors = uniqBy(posts, 'userId');
-     
-      postsWithUniqueAuthors.forEach(({ userId }) => {
-        if (!fetchedAuthors.has(userId)) {
-          fetchAuthorAndProcessResponse(userId);
-        }
-      });
+    const fetch = useCallback((userId: number) => {
+      if (!fetchedAuthors.has(userId)) {
+        fetchAuthorAndProcessResponse(userId);
+      }
     }, [fetchAuthorAndProcessResponse]);
   
     return { fetch }

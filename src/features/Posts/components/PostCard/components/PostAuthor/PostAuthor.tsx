@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAppSelector } from '../../../../../../hooks/store';
 import { selectAuthorById } from '../../../../../../store/slices/entities/postAuthors';
+import { usePostAuthorsData } from '../../../../../../hooks/usePostAuthorsData';
+import { useInViewEffect } from 'react-hook-inview';
 import './style.css';
 
 type PostAuthorProps = {
@@ -9,37 +11,51 @@ type PostAuthorProps = {
 
 export const PostAuthor: React.FC<PostAuthorProps> = ({ id }) => {
   const author = useAppSelector((state) => selectAuthorById(state, id))
-  const websiteHref = author ? formatWebsiteLink(author.website) : '';
-
-  if (!author) return (
-    <div className="author author--loading">
-      Loading....
-    </div>
+  const { fetch: fetchPostAuthors } = usePostAuthorsData();
+  const ref = useInViewEffect(
+    ([entry], observer) => {
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        fetchPostAuthors(id);
+      }
+    },
+    {
+      threshold: 0.2
+    }
   )
 
+  const websiteHref = author ? formatWebsiteLink(author.website) : '';
+
   return (
-    <div className="author">
+    <div className="author" ref={ref}>
       <h6 className="author__title">
-        by <strong>{author.username}</strong> <em>({author.name})</em>
+        { author
+            ? <>by <strong>{author.username}</strong> <em>({author.name})</em></>
+            : <>Loading...</>
+        }
       </h6>
-      <dl className="author__content">
-        <dt className="author__content-label">Email:</dt>
-        <dd className="author__content-value">
-          <a href={`mailto:${author.email}`}>{author.email}</a>
-        </dd>
-        <dt className="author__content-label">Phone:</dt>
-        <dd className="author__content-value">
-          <a href={`tel:${author.phone}`}>{author.phone}</a>
-        </dd>
-        <dt className="author__content-label">Website:</dt>
-        <dd className="author__content-value">
-          <a href={websiteHref} target="__blank">{author.website}</a>
-        </dd>
-        <dt className="author__content-label">Company:</dt>
-        <dd className="author__content-value">
-          {author.company.name}
-        </dd>
-    </dl>
+      {
+        author && (
+          <dl className="author__content">
+            <dt className="author__content-label">Email:</dt>
+            <dd className="author__content-value">
+              <a href={`mailto:${author.email}`}>{author.email}</a>
+            </dd>
+            <dt className="author__content-label">Phone:</dt>
+            <dd className="author__content-value">
+              <a href={`tel:${author.phone}`}>{author.phone}</a>
+            </dd>
+            <dt className="author__content-label">Website:</dt>
+            <dd className="author__content-value">
+              <a href={websiteHref} target="__blank">{author.website}</a>
+            </dd>
+            <dt className="author__content-label">Company:</dt>
+            <dd className="author__content-value">
+              {author.company.name}
+            </dd>
+          </dl>
+        )
+      }
     </div>
   )
 }
