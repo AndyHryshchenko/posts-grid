@@ -11,12 +11,12 @@ type PostAuthorProps = {
 
 export const PostAuthor: React.FC<PostAuthorProps> = ({ id }) => {
   const author = useAppSelector((state) => selectAuthorById(state, id))
-  const { fetch: fetchPostAuthors } = usePostAuthorsData();
+  const { fetch: fetchPostAuthor } = usePostAuthorsData();
   const ref = useInViewEffect(
     ([entry], observer) => {
       if (entry.isIntersecting) {
         observer.disconnect();
-        fetchPostAuthors(id);
+        fetchPostAuthor(id);
       }
     },
     {
