@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAppSelector } from '../../../../hooks/store';
 import { selectPostById } from '../../../../store/slices/entities/posts';
 import { PostAuthor } from './components/PostAuthor/PostAuthor';

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import { fetchPosts, selectAllPosts } from "../store/slices/entities/posts";
-import { useAppDispatch, useAppSelector } from "./store";
+import { useEffect } from 'react';
+import { fetchPosts, selectAllPosts } from '../store/slices/entities/posts';
+import { useAppDispatch, useAppSelector } from './store';
 
 export const usePostsData = () => {
   const dispatch = useAppDispatch();

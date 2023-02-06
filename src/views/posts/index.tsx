@@ -7,7 +7,9 @@ function PostsPage() {
       <header className="posts-page__header">
         <h1 className="posts-page__title">Posts</h1>
       </header>
-      <Posts />
+      <main className="posts-page__content">
+        <Posts />
+      </main>
     </div>
   );
 }

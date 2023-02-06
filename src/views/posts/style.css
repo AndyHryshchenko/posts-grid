@@ -5,3 +5,7 @@
   min-height: 100%;
   text-align: center;
 }
+
+.posts-page__content {
+  margin-top: 30px;
+}

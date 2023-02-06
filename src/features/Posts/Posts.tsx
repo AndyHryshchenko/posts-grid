@@ -1,5 +1,5 @@
-import { PostCard } from "./components/PostCard";
-import { usePostsData } from "../../hooks/usePostsData";
+import { PostCard } from './components/PostCard';
+import { usePostsData } from '../../hooks/usePostsData';
 import './style.css';
 
 export const Posts = () => {
@@ -7,14 +7,10 @@ export const Posts = () => {
 
   return (
     <div className="posts">
-      <div id="posts" className="posts__content">
+      <div className="posts__content">
         {
           posts.map((post) =>
-            <div
-              key={`${post.id}`}
-              className="posts__content-item"
-              data-post-id={post.id}
-            >
+            <div key={post.id} className="posts__content-item">
               <PostCard
                 id={post.id}
               />
@@ -24,11 +20,4 @@ export const Posts = () => {
       </div>
     </div>
   );
-}
-
-function getThresholdIndex(desiredIndex: number, totalItems: number) {
-  if (desiredIndex < totalItems) {
-    return desiredIndex;
-  }
-  return totalItems - 1;
 }

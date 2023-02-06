@@ -1,24 +1,30 @@
 import { Axios } from "axios";
 import { Post, PostAuthor } from "../types";
-import { AnyRecord } from "dns";
 
-type RawResponse = { data: string };
+type JSONResponse = string;
+
+interface HttpResponse<T = any> {
+  data: T;
+}
+interface HttpClient {
+  get<T = any, R = HttpResponse<T>>(url: string): Promise<R>;
+}
 
 class PostsService {
-  private http: Axios;
+  private http: HttpClient;
 
-  constructor(axios: Axios) {
-    this.http = axios;
+  constructor(http: HttpClient) {
+    this.http = http;
   }
 
   public async fetchPosts() {
-    const { data } = await this.http.get<any, RawResponse>('/posts');
+    const { data } = await this.http.get<JSONResponse>('/posts');
 
     return this.parseResponse<Post[]>(data);
   }
 
   public async fetchPostAuthorById(id: number) {
-    const { data } = await this.http.get<AnyRecord, RawResponse>(`/users/${id}`);
+    const { data } = await this.http.get<JSONResponse>(`/users/${id}`);
 
     return this.parseResponse<PostAuthor>(data);
   }

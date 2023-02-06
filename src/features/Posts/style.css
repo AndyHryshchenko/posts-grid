@@ -1,11 +1,13 @@
 .posts__content {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
   justify-content: center;
-  flex-wrap: wrap;
 }
 
 .posts__content-item {
-  margin: 20px;
-  width: 300px;
+  display: flex;
+  justify-content: center;
   box-sizing: border-box;
 }

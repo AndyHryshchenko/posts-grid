@@ -1,11 +1,10 @@
-import { useCallback } from "react";
-import { useAppDispatch } from "./store";
-import { fetchPostAuthor } from "../store/slices/entities/postAuthors";
+import { useCallback } from 'react';
+import { useAppDispatch } from './store';
+import { fetchPostAuthor } from '../store/slices/entities/postAuthors';
 
 export const usePostAuthorsData = (() => {
   // closure allows to use this hook in multiple components if needed
   const fetchedAuthors = new Set<number>();
-  const failedToFetchAuthors = new Set<number>();
 
   return () => {
     const dispatch = useAppDispatch();
@@ -20,12 +19,10 @@ export const usePostAuthorsData = (() => {
         } = await dispatch(fetchPostAuthor(userId));
 
         if (requestStatus === 'rejected') {
-          fetchedAuthors.delete(userId);
-          failedToFetchAuthors.add(userId);
-          console.warn(`Failed to fetch author with id: ${userId}`);
+          throw new Error(`Failed to fetch author with id: ${userId}`);
         }
       } catch (error) {
-        failedToFetchAuthors.add(userId);
+        fetchedAuthors.delete(userId);
         console.error(error);
       }
     }, [dispatch])

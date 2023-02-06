@@ -1,6 +1,6 @@
-import { PayloadAction, createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit"
-import PostsService from "../../../services/PostsService";
-import { Post } from "../../../types"
+import { PayloadAction, createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit'
+import PostsService from '../../../services/PostsService';
+import { Post } from '../../../types'
 import type { RootState } from '../../index';
 
 export const fetchPosts = createAsyncThunk(
@@ -12,7 +12,7 @@ export const fetchPosts = createAsyncThunk(
 
 const postsAdapter = createEntityAdapter<Post>({
   selectId: (book) => book.id,
-})
+});
 
 const postsSlice = createSlice({
   name: 'posts',

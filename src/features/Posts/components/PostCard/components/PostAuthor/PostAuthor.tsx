@@ -1,8 +1,8 @@
 import React from 'react';
+import { useInViewEffect } from 'react-hook-inview';
 import { useAppSelector } from '../../../../../../hooks/store';
 import { selectAuthorById } from '../../../../../../store/slices/entities/postAuthors';
 import { usePostAuthorsData } from '../../../../../../hooks/usePostAuthorsData';
-import { useInViewEffect } from 'react-hook-inview';
 import './style.css';
 
 type PostAuthorProps = {
@@ -30,8 +30,10 @@ export const PostAuthor: React.FC<PostAuthorProps> = ({ id }) => {
     <div className="author" ref={ref}>
       <h6 className="author__title">
         { author
-            ? <>by <strong>{author.username}</strong> <em>({author.name})</em></>
-            : <>Loading...</>
+            ? <span>
+                by <strong>{author.username}</strong> <em>({author.name})</em>
+              </span>
+            : <span>Loading...</span>
         }
       </h6>
       {
@@ -50,9 +52,7 @@ export const PostAuthor: React.FC<PostAuthorProps> = ({ id }) => {
               <a href={websiteHref} target="__blank">{author.website}</a>
             </dd>
             <dt className="author__content-label">Company:</dt>
-            <dd className="author__content-value">
-              {author.company.name}
-            </dd>
+            <dd className="author__content-value">{author.company.name}</dd>
           </dl>
         )
       }
